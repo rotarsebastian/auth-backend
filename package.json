@@ -24,6 +24,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
+    "start": "knex migrate:rollback && knex migrate:latest && knex seed:run && node app",
     "migrate:latest": "knex migrate:latest",
     "migrate:make": "knex migrate:make",
     "migrate:rollback": "knex migrate:rollback",
