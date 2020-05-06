@@ -4,7 +4,7 @@ const { knexSnakeCaseMappers } = require('objection');
 module.exports = {
 
   development: {
-    client: 'mysql',
+    client: require('knex')({ client: 'mysql' }),
     connection: {
       host: process.env.DB_HOST || '',
       user: process.env.DB_USER || username,
