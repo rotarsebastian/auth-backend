@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 const moment = require('moment');
 const xoauth2 = require('xoauth2');
 const emailExistence = require('email-existence');
-const { gmailRequestData } = require('../config/gmailConfig');
+// const { gmailRequestData } = require('../config/gmailConfig');
 
 // =========== CLIENT ===========
 const clientEndpoint = 'https://rotarsebastian.github.io';
