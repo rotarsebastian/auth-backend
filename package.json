@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
     "bcrypt": "^4.0.1",
     "connect-session-knex": "^1.6.0",
@@ -24,7 +24,7 @@
     "nodemon": "^2.0.2"
   },
   "scripts": {
-    "start": "knex migrate:rollback && knex migrate:latest && knex seed:run && node app",
+    "start": "knex migrate:rollback && knex migrate:latest && knex seed:run && node app.js",
     "migrate:latest": "knex migrate:latest",
     "migrate:make": "knex migrate:make",
     "migrate:rollback": "knex migrate:rollback",
