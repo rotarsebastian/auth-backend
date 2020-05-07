@@ -252,18 +252,17 @@ router.get('/activate-email', async(req, res) => {
     if(key) {
         if(isUuid(key)) {
             try {
-                const users = await User.query().where({ activate_or_reset_pass_key: key }).limit(1);
-                const user = users[0];
-                if(!user) return res.send({ status: 0, message: 'Your link has expired!', code: 155 });
+                const [user] = await User.query().where({ activate_or_reset_pass_key: key }).limit(1);
+                if(!user) return res.redirect(`${clientEndpoint}/login?expired=true`); // link activated already or is expired
                 if(user.verified === 1) return res.redirect(`${clientEndpoint}/login?activated=true`); // already activated
                 const activatedAccount = await User.query().findById(user.id).patch({ activate_or_reset_pass_key: newKey, verified: 1 });
                 if(activatedAccount !== undefined) return res.redirect(`${clientEndpoint}/login?activated=${key}`);
                     else return res.redirect(`${clientEndpoint}/login?activated=false`); 
             } catch (err) {
-                return res.send({ status: 0, message: 'Error while trying activate account!', code: 404 });
+                return res.redirect(`${clientEndpoint}/login?expired=true`);
             }
-        } else return res.send({ status: 0, message: 'Error while trying to check activation key!', code: 404 });
-    } else return res.send({ status: 0, message: 'Error while trying to activate user!', code: 404 });
+        } return res.redirect(`${clientEndpoint}/login?expired=true`);
+    } return res.redirect(`${clientEndpoint}/login?expired=true`);
 });
 
 // REGISTER USER
