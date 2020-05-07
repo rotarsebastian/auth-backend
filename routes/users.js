@@ -35,6 +35,7 @@ let transporter = nodemailer.createTransport(createTransportObject);
 const checkFormStructure = (form, option) => {
     if(form === undefined) return { status: 0, message: 'Invalid request!', code: 404 };
     if(!Array.isArray(form)) return { status: 0, message: 'Invalid format!', code: 404 };
+    if(Array.isArray(form) && form.length === 0) return { status: 0, message: 'Array cannot be empty!', code: 404 };
     const rightElemNo = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && Object.keys(e).length === 2).length;
     if(option) {
         if(form.length !== 3 || rightElemNo !== 2 || !form[2].hasOwnProperty('key')) return { status: 0, message: 'Invalid array elements!', code: 404 };
