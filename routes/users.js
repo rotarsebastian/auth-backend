@@ -204,9 +204,7 @@ router.post('/edit', isAuthenticated, async(req, res) => {
 
 // LOGIN USER
 router.post('/login', async(req, res) => {
-    const data = req.body;
-
-    if(!Array.isArray(data)) return { status: 0, message: 'Invalid format!', code: 404 };
+    if(req.body.constructor !== Array) return { status: 0, message: 'Invalid format!', code: 404 };
 
     const form = [ ...req.body ];
     
