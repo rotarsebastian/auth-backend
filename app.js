@@ -63,6 +63,10 @@ app.use('/users', authLimiter);
 app.use('/users', usersRoute);
 // app.use('/playground', playRoute);
 
+app.get('/test', (req, res) => {
+  res.send('works')
+})
+
 const PORT = process.env.PORT || runPORT;
 
 // #############################################
