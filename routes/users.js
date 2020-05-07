@@ -174,6 +174,11 @@ router.post('/edit', isAuthenticated, async(req, res) => {
 // LOGIN USER
 router.post('/login', async(req, res) => {
     const form = [ ...req.body ];
+    
+    if(!Array.isArray(form)) return res.send({ status: 0, message: 'Invalid format!', code: 404 });
+    const rightElemNo = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && Object.keys(e).length === 2).length;
+    if(form.length !== rightElemNo) return res.send({ status: 0, message: 'Invalid array elements!', code: 404 });
+
     const result = validate(form);
 
     if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 })
