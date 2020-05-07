@@ -31,6 +31,19 @@ const createTransportObject = {
 }
 let transporter = nodemailer.createTransport(createTransportObject);
 
+// =========== FUNCTIONS ===========
+const checkFormStructure = (form, option) => {
+    if(form === undefined) return { status: 0, message: 'Invalid request!', code: 404 };
+    if(!Array.isArray(form)) return { status: 0, message: 'Invalid format!', code: 404 };
+    const rightElemNo = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && Object.keys(e).length === 2).length;
+    if(option) {
+        if(form.length !== 3 || rightElemNo !== 2 || !form[2].hasOwnProperty('key')) return { status: 0, message: 'Invalid array elements!', code: 404 };
+    } else {
+        if(form.length !== rightElemNo) return { status: 0, message: 'Invalid array elements!', code: 404 };
+    }
+    return { status: 1 };
+}
+
 // =========== USERS ROUTES ===========
 
 // LOGOUT
@@ -75,6 +88,11 @@ router.get('/reset', async(req, res) => {
 // RESET USER PASSWORD
 router.post('/resetpass', async(req, res) => {
     const form = [ ...req.body ];
+
+    const checkResponse = checkFormStructure(form, 'resetpass');
+
+    if(checkResponse.status === 0) return res.send(checkResponse);
+
     const result = validate([form[0], form[1]]);
 
     if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 });
@@ -116,6 +134,11 @@ router.post('/resetpass', async(req, res) => {
 // RECOVER CREDENTIALS OR RESEND ACTIVATION EMAIL
 router.post('/recover', async(req, res) => {
     const form = [ ...req.body ];
+
+    const checkResponse = checkFormStructure(form);
+
+    if(checkResponse.status === 0) return res.send(checkResponse);
+
     const result = validate(form);
 
     if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 })
@@ -159,6 +182,8 @@ router.post('/recover', async(req, res) => {
 router.post('/edit', isAuthenticated, async(req, res) => {
     try {
         const form = [ ...req.body ];
+        const checkResponse = checkFormStructure(form);
+        if(checkResponse.status === 0) return res.send(checkResponse);
         const result = validate(form);
         if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 });
         const { addressid: addressID } = req.query;
@@ -175,9 +200,9 @@ router.post('/edit', isAuthenticated, async(req, res) => {
 router.post('/login', async(req, res) => {
     const form = [ ...req.body ];
     
-    if(!Array.isArray(form)) return res.send({ status: 0, message: 'Invalid format!', code: 404 });
-    const rightElemNo = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && Object.keys(e).length === 2).length;
-    if(form.length !== rightElemNo) return res.send({ status: 0, message: 'Invalid array elements!', code: 404 });
+    const checkResponse = checkFormStructure(form);
+
+    if(checkResponse.status === 0) return res.send(checkResponse);
 
     const result = validate(form);
 
@@ -232,6 +257,11 @@ router.get('/activate-email', async(req, res) => {
 // REGISTER USER
 router.post('/register', async(req, res) => {
     const form = [ ...req.body ];
+
+    const checkResponse = checkFormStructure(form);
+
+    if(checkResponse.status === 0) return res.send(checkResponse);
+
     const result = validate(form);
 
     if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 });
