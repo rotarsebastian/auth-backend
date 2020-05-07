@@ -64,8 +64,8 @@ app.use('/users', usersRoute);
 // app.use('/playground', playRoute);
 
 app.get('/test', (req, res) => {
-  res.send('works')
-})
+  return res.status(200).send({ status: 1, message: 'Test works!', code: 200 });
+});
 
 const PORT = process.env.PORT || runPORT;
 
