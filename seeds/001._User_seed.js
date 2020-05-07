@@ -2,7 +2,7 @@
 exports.seed = knex => {
   const users = [
     { username: 'sebi123', first_name: 'A', last_name: 'AA', password: '$2b$10$rmiFymi5sFuvhKHGrWXJNuYv/udozDLiz6AV08Ubh/7eYg7A4dp2a', 
-      email: 'az@az.com', activate_or_reset_pass_key: '75442486-0878-440c-9db1-a7006c25a39f', company: 'Microsoft', verified: 1,
+      email: 'az@az.com', activate_or_reset_pass_key: '75442486-0878-440c-9db1-a7006c25a39f', company: 'Microsoft', verified: 0,
 
       address: 'Street 1, Cph', 
       postal_code: '2100',
@@ -10,7 +10,7 @@ exports.seed = knex => {
       country: 'Denmark', 
     },
     { username: 'poweruser', first_name: 'B', last_name: 'BB', password: '$2b$10$rmiFymi5sFuvhKHGrWXJNuYv/udozDLiz6AV08Ubh/7eYg7A4dp2a', 
-      email: 'az1@az1.com', activate_or_reset_pass_key: '75442486-0878-441c-9db1-a7006c25a39f', company: 'Google', verified: 1,
+      email: 'az1@az1.com', activate_or_reset_pass_key: '75442486-0878-441c-9db1-a7006c25a39f', company: 'Google', verified: 0,
 
       address: 'Street 11, Cph', 
       postal_code: '2200',
