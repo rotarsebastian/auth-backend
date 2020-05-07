@@ -57,7 +57,7 @@ const authLimiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100 // limit each ip to 4 req per windowsMs
 });
-app.use('/users', authLimiter);
+// app.use('/users', authLimiter);
 
 // Use routes
 app.use('/users', usersRoute);
