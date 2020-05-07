@@ -88,6 +88,8 @@ router.get('/reset', async(req, res) => {
 
 // RESET USER PASSWORD
 router.post('/resetpass', async(req, res) => {
+    if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
+
     const form = [ ...req.body ];
 
     const checkResponse = checkFormStructure(form, 'resetpass');
@@ -134,6 +136,8 @@ router.post('/resetpass', async(req, res) => {
 
 // RECOVER CREDENTIALS OR RESEND ACTIVATION EMAIL
 router.post('/recover', async(req, res) => {
+    if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
+
     const form = [ ...req.body ];
 
     const checkResponse = checkFormStructure(form);
@@ -182,6 +186,7 @@ router.post('/recover', async(req, res) => {
 // EDIT USER PROFILE
 router.post('/edit', isAuthenticated, async(req, res) => {
     try {
+        if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
         const form = [ ...req.body ];
         const checkResponse = checkFormStructure(form);
         if(checkResponse.status === 0) return res.send(checkResponse);
@@ -199,6 +204,8 @@ router.post('/edit', isAuthenticated, async(req, res) => {
 
 // LOGIN USER
 router.post('/login', async(req, res) => {
+    if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
+
     const form = [ ...req.body ];
     
     const checkResponse = checkFormStructure(form);
@@ -257,6 +264,8 @@ router.get('/activate-email', async(req, res) => {
 
 // REGISTER USER
 router.post('/register', async(req, res) => {
+    if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
+
     const form = [ ...req.body ];
 
     const checkResponse = checkFormStructure(form);
