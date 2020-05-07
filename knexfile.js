@@ -14,8 +14,8 @@ module.exports = {
   // },
 
   production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
+    client: 'mysql',
+    connection: process.env.JAWSDB_URL,
     migrations: {
       directory: __dirname + '/migrations'
     },
