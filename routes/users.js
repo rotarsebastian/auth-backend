@@ -37,9 +37,13 @@ const checkFormStructure = (form, option) => {
     if(!Array.isArray(form)) return { status: 0, message: 'Invalid format!', code: 404 };
     if(Array.isArray(form) && form.length === 0) return { status: 0, message: 'Array cannot be empty!', code: 404 };
     const rightElemNo = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && Object.keys(e).length === 2).length;
-    if(option) {
+    if(option && option === 'resetpass') {
         if(form.length !== 3 || rightElemNo !== 2 || !form[2].hasOwnProperty('key')) return { status: 0, message: 'Invalid array elements!', code: 404 };
-    } else {
+    } else if(option && option === 'edit') {
+        const rightElemNoEdit = form.filter(e => e.hasOwnProperty('type') && e.hasOwnProperty('val') && (Object.keys(e).length === 2 || Object.keys(e).length === 3)).length;
+        if(form.length !== rightElemNoEdit) return { status: 0, message: 'Invalid array elements!', code: 404 };
+    }
+     else {
         if(form.length !== rightElemNo) return { status: 0, message: 'Invalid array elements!', code: 404 };
     }
     return { status: 1 };
@@ -188,7 +192,7 @@ router.post('/edit', isAuthenticated, async(req, res) => {
     try {
         if(!Array.isArray(req.body)) return { status: 0, message: 'Invalid format!', code: 404 };
         const form = [ ...req.body ];
-        const checkResponse = checkFormStructure(form);
+        const checkResponse = checkFormStructure(form, 'edit');
         if(checkResponse.status === 0) return res.send(checkResponse);
         const result = validate(form);
         if(result.status === 0) return res.send({ status: 0, invalids: result.invalidInputs, code: 11 });
