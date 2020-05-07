@@ -33,7 +33,7 @@ app.use((undefined, res, next) => {
 
 // Setup the Knex
 const knex = Knex(knexFile.production);
-Model.knex(knex); // Give the knex instance to objection.js
+Model.knex(knex); // Give the knex instance to objectionjs
 
 // Creating a store for express-session using 
 const store = new KnexStore({ knex }); 
