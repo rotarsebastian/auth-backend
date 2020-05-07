@@ -54,9 +54,9 @@ const checkFormStructure = (form, option) => {
 // LOGOUT
 router.get('/logout', (req,res) => {
     req.session.destroy(err => {
-        res.clearCookie('ulog');
-        res.clearCookie('user_sid');
         if(err) return res.send({ status: 0, message: 'Error while trying to logout user!', code: 404 });
+        // res.clearCookie('ulog');
+        res.clearCookie('user_sid');
         res.status(200).send({ status: 1, msg: 'User is logged out!'});
     });
 });
