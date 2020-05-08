@@ -62,8 +62,8 @@ router.get('/logout', (req,res) => {
 });
 
 // CHECK IF USER HAS A SESSION
-router.get('/checkauth', isAuthenticated, async(req, res) => {
-    const { options } = req.query;
+router.post('/checkauth', isAuthenticated, async(req, res) => {
+    const { withOptions } = req.body;
     try {
         const [fullUser] = await User.query().where({ id: req.session.user.id }).limit(1);
         if(options && options === 'profile') return res.status(200).send({ status: 1, msg: 'User authorized!', data: await getProFileData(fullUser.id) });
