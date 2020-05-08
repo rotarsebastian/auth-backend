@@ -59,7 +59,7 @@ const authLimiter = rateLimit({
 });
 app.use('/users', authLimiter);
 
-// Use routes
+// User routes
 app.use('/users', usersRoute);
 // app.use('/playground', playRoute);
 
