@@ -66,7 +66,7 @@ router.post('/checkauth', isAuthenticated, async(req, res) => {
     const { withOptions } = req.body;
     try {
         const [fullUser] = await User.query().where({ id: req.session.user.id }).limit(1);
-        if(options && options === 'profile') return res.status(200).send({ status: 1, msg: 'User authorized!', data: await getProFileData(fullUser.id) });
+        if(withOptions && withOptions === 'profile') return res.status(200).send({ status: 1, msg: 'User authorized!', data: await getProFileData(fullUser.id) });
             else return res.status(200).send({ status: 1, msg: 'User authorized!', username: fullUser.username, userID: fullUser.id });
     } catch(err) {
         return res.send({ status: 0, msg: 'User not authorized!'});
