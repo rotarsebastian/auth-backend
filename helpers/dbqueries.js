@@ -18,7 +18,7 @@ const makeRequest = async(form, userID, addressID) => {
     
         const dbResponse = await User.query().upsertGraph(requestObj);
         if(typeof dbResponse !== 'object') return { status: 0, message: 'DB Error! Please try again', code: 404 };
-        return { status: 1, message: 'Your profile has been updated!', code: 200 };
+        return { status: 1, message: 'Your profile has been updated!', data: dbResponse, code: 200 };
     } catch(e) {
         return { status: 0, message: 'Error configuring request!', code: 404 };
     }
