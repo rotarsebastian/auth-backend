@@ -1,6 +1,3 @@
-// const { gmailRequestData } = require('../config/gmailConfig');
-// const { endpoint } = require('../config/otherConfigs');
-
 const rawEmail = {
     from: `SoftCloud <${process.env.MAIL_SENDER || gmailRequestData.senderEmail}>`,
     to: 'receiver.email@gmail.com',

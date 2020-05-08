@@ -2,13 +2,11 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet'); 
 const { Model } = require('objection');
-// const Knex = require('knex')('production');
 const Knex = require('knex');
 const knexFile = require('./knexfile');
 const rateLimit = require('express-rate-limit');
 const session = require('express-session');
 const KnexStore = require('connect-session-knex')(session);
-// const { sessionKey, runPORT } = require('./config/otherConfigs');
 
 const clientEndpoint = 'https://rotarsebastian.github.io';
 
