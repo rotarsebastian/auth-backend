@@ -61,11 +61,9 @@ app.use('/users', authLimiter);
 
 // User routes
 app.use('/users', usersRoute);
-// app.use('/playground', playRoute);
+// app.use('/playground', playRoute); // TEST ROUTE
 
-app.get('/test', (req, res) => {
-  return res.status(200).send({ status: 1, message: 'Test works!', code: 200 });
-});
+app.get('/test', (req, res) => res.status(200).send({ status: 1, message: 'Test works!', code: 200 }));
 
 const PORT = process.env.PORT || runPORT;
 
